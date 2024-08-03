@@ -3,9 +3,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "update-types": "npx supabase gen types --lang=typescript --project-id jhcjmrdnscwurmyfnadu > types/supabase.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/joy": "^5.0.0-beta.48",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.17",
