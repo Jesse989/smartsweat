@@ -28,7 +28,7 @@ export default function LandingPage() {
             Healthier, Smarter You!
           </Typography>
         </Stack>
-        <Stack gap={1} flex={0}>
+        <Stack gap={2} flex={0}>
           <Link href="/login" passHref>
             <Button fullWidth>Login</Button>
           </Link>

@@ -62,6 +62,9 @@ export default function Login({
           </Box>
           <Stack gap={2}>
             <FormControl>
+              <Input type="text" name="name" placeholder="Name" required />
+            </FormControl>
+            <FormControl>
               <Input type="number" name="age" placeholder="Age" required />
             </FormControl>
             <FormControl>
@@ -101,6 +104,7 @@ export default function Login({
             </FormControl>
           </Stack>
         </Stack>
+        {searchParams?.message && <p>{searchParams.message}</p>}
         <Stack gap={1} flex={0}>
           <SubmitButton formAction={updateProfile} pendingText="Signing Up...">
             Let's Go!
@@ -110,7 +114,6 @@ export default function Login({
               Cancel
             </Button>
           </Link>
-          {searchParams?.message && <p>{searchParams.message}</p>}
         </Stack>
       </Stack>
     </Stack>

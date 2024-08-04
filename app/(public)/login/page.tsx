@@ -3,12 +3,15 @@ import { redirect } from 'next/navigation';
 import { SubmitButton } from '@/components/SubmitButton';
 import {
   Box,
+  Button,
+  Divider,
   FormControl,
-  FormLabel,
   Input,
   Stack,
   Typography,
 } from '@mui/joy';
+import Link from 'next/link';
+import AuthButtonServer from './auth-button-server';
 
 export default function Login({
   searchParams,
@@ -31,7 +34,7 @@ export default function Login({
       return redirect('/login?message=Could not authenticate user');
     }
 
-    return redirect('/protected');
+    return redirect('/home');
   };
 
   return (
@@ -41,13 +44,16 @@ export default function Login({
       bgcolor="background.surface"
       p={2}
       justifyContent="space-between">
-      <Stack>
+      <Stack gap={4}>
         <Box p={4}>
           <Typography level="title-lg" textAlign="center">
             Get Ready to Ignite Your Fitness Spark! Log In to SmartSweat and
             Transform Your Workout Routine Today!
           </Typography>
         </Box>
+        <AuthButtonServer />
+        <Divider>or</Divider>
+
         <Stack gap={2}>
           <FormControl>
             <Input name="email" placeholder="Email" required />
@@ -62,11 +68,17 @@ export default function Login({
           </FormControl>
         </Stack>
       </Stack>
+
       <Stack gap={2} flex={0}>
+        {searchParams?.message && <p>{searchParams.message}</p>}
         <SubmitButton formAction={signIn} pendingText="Signing In...">
           Login
         </SubmitButton>
-        {searchParams?.message && <p>{searchParams.message}</p>}
+        <Link href="/">
+          <Button fullWidth variant="outlined" color="neutral">
+            Cancel
+          </Button>
+        </Link>
       </Stack>
     </Stack>
   );
