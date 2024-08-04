@@ -1,3 +1,4 @@
+import NewExerciseButton from '@/components/NewExerciseButton';
 import { createClient } from '@/utils/supabase/server';
 import { Add } from '@mui/icons-material';
 import { AspectRatio, Button, Sheet, Stack, Typography } from '@mui/joy';
@@ -40,7 +41,7 @@ export default async function HomePage() {
           <Typography level="title-lg">Workouts</Typography>
         </Stack>
       </Sheet>
-      <Button startDecorator={<Add />}>Upload new exercise</Button>
+      <NewExerciseButton />
     </Stack>
   );
 }

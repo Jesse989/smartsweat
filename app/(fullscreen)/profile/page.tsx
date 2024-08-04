@@ -2,12 +2,14 @@ import { SubmitButton } from '@/components/SubmitButton';
 import { createClient } from '@/utils/supabase/server';
 import {
   Box,
+  Button,
   FormControl,
   FormLabel,
   Input,
   Stack,
   Typography,
 } from '@mui/joy';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default function Login({
@@ -46,58 +48,70 @@ export default function Login({
   return (
     <Stack
       component="form"
-      height="100%"
+      minHeight="100%"
       bgcolor="background.surface"
       p={2}
       justifyContent="space-between">
-      <Stack gap={4}>
-        <Box px={4} py={5}>
-          <Typography level="h4" textAlign="center">
-            Shape Your Fitness Journey! Create Your SmartSweat Profile to Tailor
-            Your Pathway to Peak Health!
-          </Typography>
-        </Box>
-        <Stack gap={2}>
-          <FormControl>
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <Input name="email" placeholder="you@example.com" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="age">Age</FormLabel>
-            <Input type="number" name="age" placeholder="42" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="weight">Weight</FormLabel>
-            <Input type="number" name="weight" placeholder="155" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="height">Height</FormLabel>
-            <Input type="number" name="height" placeholder='72"' required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="sex">Sex</FormLabel>
-            <Input type="text" name="sex" placeholder="male" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="fitness">Fitness level</FormLabel>
-            <Input type="text" name="fitness" placeholder="Inactive" required />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="goal">Fitness goal</FormLabel>
-            <Input
-              type="text"
-              name="goal"
-              placeholder="Lean muscle mass"
-              required
-            />
-          </FormControl>
+      <Stack justifyContent="space-between" height="100%">
+        <Stack gap={1}>
+          <Box px={4} py={4}>
+            <Typography level="title-lg" textAlign="center" fontWeight={500}>
+              Shape Your Fitness Journey: Create Your SmartSweat Profile to
+              Tailor Your Pathway to Peak Health!
+            </Typography>
+          </Box>
+          <Stack gap={2}>
+            <FormControl>
+              <Input type="number" name="age" placeholder="Age" required />
+            </FormControl>
+            <FormControl>
+              <Input
+                type="number"
+                name="weight"
+                placeholder="Weight"
+                required
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                type="number"
+                name="height"
+                placeholder="Height"
+                required
+              />
+            </FormControl>
+            <FormControl>
+              <Input type="text" name="sex" placeholder="Sex" required />
+            </FormControl>
+            <FormControl>
+              <Input
+                type="text"
+                name="fitness"
+                placeholder="Fitness level"
+                required
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                type="text"
+                name="goal"
+                placeholder="Fitness goal"
+                required
+              />
+            </FormControl>
+          </Stack>
         </Stack>
-      </Stack>
-      <Stack gap={2} flex={0}>
-        <SubmitButton formAction={updateProfile} pendingText="Signing Up...">
-          Let's Go!
-        </SubmitButton>
-        {searchParams?.message && <p>{searchParams.message}</p>}
+        <Stack gap={1} flex={0}>
+          <SubmitButton formAction={updateProfile} pendingText="Signing Up...">
+            Let's Go!
+          </SubmitButton>
+          <Link href="/home">
+            <Button fullWidth variant="outlined" color="neutral">
+              Cancel
+            </Button>
+          </Link>
+          {searchParams?.message && <p>{searchParams.message}</p>}
+        </Stack>
       </Stack>
     </Stack>
   );

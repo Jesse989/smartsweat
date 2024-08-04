@@ -1,21 +1,20 @@
-import { Box, useColorScheme } from '@mui/joy';
+'use client';
 
-interface Props {
-  onClick?: () => void;
-}
+import { Stack, useColorScheme, useTheme } from '@mui/joy';
+import { YogaIcon } from './YogaIcon';
+import { SmartSweatIcon } from './SmartSweatIcon';
 
-export default function Logo({ onClick }: Props) {
+export default function Logo() {
   const { mode } = useColorScheme();
+  const theme = useTheme();
+
+  const logoColor =
+    mode === 'light' ? theme.palette.common.black : theme.palette.common.white;
 
   return (
-    <Box
-      component="img"
-      alt="portal logo"
-      src={'/logo.svg'}
-      height="32px"
-      ml={0.75}
-      onClick={onClick}
-      sx={{ cursor: onClick ? 'pointer' : 'default' }}
-    />
+    <Stack direction="row" alignItems="center" height="26px">
+      <SmartSweatIcon sx={{ width: '128px', color: logoColor }} />
+      <YogaIcon sx={{ fontSize: '50px', mt: -0.6, ml: -1.8 }} />
+    </Stack>
   );
 }

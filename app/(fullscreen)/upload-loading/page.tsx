@@ -22,8 +22,8 @@ export default async function UploadLoadingPage() {
       margin={4}>
       <CircularProgress size="lg" />
       <Typography textAlign="center">
-        Keep the Momentum Going! While Your Video Uploads, Power Up with Some
-        Jump Squats! Stay Active and Get Ready for Insights from SmartSweat.
+        Keep the momentum going! While your video uploads, power up with some
+        jump squats! Stay active and get ready for insights from SmartSweat.
       </Typography>
     </Stack>
   );

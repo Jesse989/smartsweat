@@ -41,24 +41,22 @@ export default function Login({
       bgcolor="background.surface"
       p={2}
       justifyContent="space-between">
-      <Stack gap={10} py={10}>
+      <Stack>
         <Box p={4}>
-          <Typography level="h3" textAlign="center">
+          <Typography level="title-lg" textAlign="center">
             Get Ready to Ignite Your Fitness Spark! Log In to SmartSweat and
             Transform Your Workout Routine Today!
           </Typography>
         </Box>
         <Stack gap={2}>
           <FormControl>
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <Input name="email" placeholder="you@example.com" required />
+            <Input name="email" placeholder="Email" required />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="password">Password</FormLabel>
             <Input
               type="password"
               name="password"
-              placeholder="••••••••"
+              placeholder="Password"
               required
             />
           </FormControl>

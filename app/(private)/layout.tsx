@@ -13,8 +13,7 @@ export default function PrivateLayout({
       <Stack
         overflow="auto"
         sx={{
-          px: 2,
-          py: 2.5,
+          p: 2,
           flex: '1 1 0%',
         }}>
         {children}

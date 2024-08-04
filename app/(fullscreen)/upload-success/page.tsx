@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { CheckCircle } from '@mui/icons-material';
-import { CircularProgress, Stack, Typography } from '@mui/joy';
+import { Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 
 export default async function UploadSuccessPage() {
@@ -23,8 +23,8 @@ export default async function UploadSuccessPage() {
       margin={4}>
       <CheckCircle sx={{ fontSize: '56px' }} color="primary" />
       <Typography textAlign="center">
-        Exciting News Awaits, Your Results Are In! Dash Over to 'My Workouts'
-        Page to Uncover Personalized Insights and Tips.
+        Exciting news awaits! Your results are in and can be viewed in the 'My
+        Workouts' page. Keep up the great work!
       </Typography>
     </Stack>
   );

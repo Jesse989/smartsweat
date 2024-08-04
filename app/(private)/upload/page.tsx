@@ -33,7 +33,7 @@ export default async function UploadPage() {
           <Typography level="body-md">644kbs</Typography>
         </Stack>
       </Sheet>
-      <Button>Upload new exercise</Button>
+      <Button>Submit!</Button>
     </Stack>
   );
 }
