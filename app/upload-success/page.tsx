@@ -1,0 +1,17 @@
+import { createClient } from '@/utils/supabase/server';
+import { Stack } from '@mui/joy';
+import { redirect } from 'next/navigation';
+
+export default async function UploadSuccesPage() {
+  const supabase = createClient();
+
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
+
+  // if (!user) {
+  //   return redirect('/login');
+  // }
+
+  return <Stack>Upload Success</Stack>;
+}
