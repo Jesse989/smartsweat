@@ -1,17 +1,24 @@
-import { createClient } from '@/utils/supabase/server';
+'use client';
+import { createClient } from '@/utils/supabase/client';
 import { CircularProgress, Stack, Typography } from '@mui/joy';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 export default async function UploadLoadingPage() {
   const supabase = createClient();
+  const router = useRouter();
 
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // if (!user) {
-  //   return redirect('/');
-  // }
+  if (!user) {
+    return redirect('/');
+  }
+
+  // Redirect to 'upload-success' after 5 seconds
+  setTimeout(() => {
+    router.push('/upload-success');
+  }, 5000);
 
   return (
     <Stack

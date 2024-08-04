@@ -1,39 +1,74 @@
+import VideoUpload from '@/components/VideoUpload';
 import { createClient } from '@/utils/supabase/server';
-import { UploadFile } from '@mui/icons-material';
-import { AspectRatio, Button, Sheet, Stack, Typography } from '@mui/joy';
+import { Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
+import {
+  ConvoApi,
+  ConvoApiApiKeys,
+  ConversationCreationParams,
+} from '@nft-portal/portal-ts';
 
 export default async function UploadPage() {
   const supabase = createClient();
 
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // if (!user) {
-  //   return redirect('/');
-  // }
+  if (!user) {
+    return redirect('/');
+  }
+
+  const { data } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id);
+
+  if (!data) {
+    throw new Error('Profile not found');
+  }
+
+  const profile = data[0];
+
+  const handleSubmit = async (videoUrl: string) => {
+    'use server';
+
+    // Instantiate the API
+    const convoApi = new ConvoApi();
+
+    // Set the API key. You can get your API key from the Portal settings page.
+    convoApi.setApiKey(ConvoApiApiKeys.apiKey, process.env.PORTAL_API_KEY!);
+
+    // Call the API
+    const res = await convoApi.createConversation({
+      appId: process.env.PORTAL_APP_ID!,
+      status: ConversationCreationParams.StatusEnum.Running,
+    });
+
+    if (res.response.statusCode !== 200) {
+      throw new Error('Failed to get ConvoApi');
+    }
+
+    // Insert message
+    await convoApi.createMessage(res.body.id, {
+      creator: 'anonymous',
+      content: `Please complete the work flow using the video with URL: 66afaf5d13a154f3eecb71e1, and the following users workout profile: ${JSON.stringify(
+        profile,
+        null,
+        2,
+      )}`,
+    });
+
+    return redirect('/upload-loading');
+  };
 
   return (
     <Stack gap={2}>
       <Typography level="body-md">
-        Perfect Your Form! Upload a Video of Your Exercise Routine and Let
+        Perfect Your Convo! Upload a Video of Your Exercise Routine and Let
         SmartSweat AI Guide You Towards Precision and Safety.
       </Typography>
-      <Sheet variant="outlined">
-        <AspectRatio ratio={16 / 9}>
-          <Stack>
-            <UploadFile sx={{ fontSize: '76px' }} />
-          </Stack>
-        </AspectRatio>
-      </Sheet>
-      <Sheet variant="outlined">
-        <Stack direction="row" justifyContent="space-between" p={1}>
-          <Typography level="body-md">some_filename.mp4</Typography>
-          <Typography level="body-md">644kbs</Typography>
-        </Stack>
-      </Sheet>
-      <Button>Submit!</Button>
+      <VideoUpload onSubmit={handleSubmit} />
     </Stack>
   );
 }

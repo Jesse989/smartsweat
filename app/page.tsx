@@ -17,7 +17,7 @@ export default function LandingPage() {
         justifyContent="space-around"
         minHeight="100%"
         p={2}
-        bgcolor="rgba(0, 0, 0, 0.6)">
+        bgcolor="rgba(0, 0, 0, 0.8)">
         <Stack flex={1} justifyContent="center" px={2}>
           <Typography
             level="h3"

@@ -1,18 +1,19 @@
 import { createClient } from '@/utils/supabase/server';
 import { CheckCircle } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/joy';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function UploadSuccessPage() {
   const supabase = createClient();
 
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // if (!user) {
-  //   return redirect('/');
-  // }
+  if (!user) {
+    return redirect('/');
+  }
 
   return (
     <Stack
@@ -26,6 +27,7 @@ export default async function UploadSuccessPage() {
         Exciting news awaits! Your results are in and can be viewed in the 'My
         Workouts' page. Keep up the great work!
       </Typography>
+      <Link href="/results?workout_id=1">View results</Link>
     </Stack>
   );
 }

@@ -1,7 +1,6 @@
 import AuthButtonServer from '@/app/(public)/login/auth-button-server';
 import NewExerciseButton from '@/components/NewExerciseButton';
 import { createClient } from '@/utils/supabase/server';
-import { Logout } from '@mui/icons-material';
 import { IconButton, Sheet, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 
@@ -15,6 +14,25 @@ export default async function HomePage() {
   if (!user) {
     return redirect('/');
   }
+  const { data } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id);
+
+  if (!data) {
+    return redirect('/profile');
+  }
+
+  // profile is data[0]
+  const profile = data[0];
+
+  console.log(profile);
+
+  if (profile.status !== 'onboarded') {
+    return redirect('/profile');
+  }
+
+  console.log(data);
 
   return (
     <Stack minHeight="100%" gap={2}>
