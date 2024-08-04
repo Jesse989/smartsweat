@@ -1,3 +1,4 @@
+import { Box } from '@mui/joy';
 import './globals.css';
 import ThemeRegistry from './theme-registry';
 
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+          <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
+        </Box>
       </body>
     </html>
   );
