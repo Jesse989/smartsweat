@@ -21,7 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            position: 'relative',
+          }}>
           <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
         </Box>
       </body>

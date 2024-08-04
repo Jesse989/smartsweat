@@ -1,3 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+html,
+body,
+#root {
+  color-scheme: dark;
+  height: 100%;
+}
+
+body {
+  background-color: #0f0e0e;
+  font-weight: 400;
+  color: #9a9b9d;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+}
+
 a {
   text-decoration: none;
 }

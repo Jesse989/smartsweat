@@ -8,8 +8,8 @@ export default function LandingPage() {
     <>
       <Image
         src={landingBg}
-        layout="fill"
-        objectFit="cover"
+        style={{ objectFit: 'cover' }}
+        fill
         alt="woman working out"
       />
       <Stack
