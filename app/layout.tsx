@@ -20,11 +20,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <Box component="body" bgcolor="background.level1">
         <Container
+          disableGutters
           maxWidth="xs"
           sx={{
             height: '100%',
+            backgroundColor: 'background.surface',
+            border: '1px solid',
+            borderColor: 'divider',
           }}>
           <Box
             sx={{
@@ -36,7 +40,7 @@ export default function RootLayout({
             <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
           </Box>
         </Container>
-      </body>
+      </Box>
     </html>
   );
 }
