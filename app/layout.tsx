@@ -1,4 +1,4 @@
-import { Box } from '@mui/joy';
+import { Box, Container } from '@mui/joy';
 import './globals.css';
 import ThemeRegistry from './theme-registry';
 
@@ -21,15 +21,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Box
+        <Container
+          maxWidth="xs"
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
             height: '100%',
-            position: 'relative',
           }}>
-          <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
-        </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              height: '100%',
+              position: 'relative',
+            }}>
+            <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
+          </Box>
+        </Container>
       </body>
     </html>
   );
