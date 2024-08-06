@@ -64,10 +64,13 @@ export default async function UploadPage() {
 
   return (
     <Stack gap={2}>
-      <Typography level="body-md">
-        Perfect Your Convo! Upload a Video of Your Exercise Routine and Let
-        SmartSweat AI Guide You Towards Precision and Safety.
-      </Typography>
+      <Stack gap={0.5}>
+        <Typography level="h2">Upload Your Video</Typography>
+        <Typography level="body-md" textColor="text.secondary">
+          Upload a video of your exercise routine and let SmartSweat AI guide
+          you towards precision and safety.
+        </Typography>
+      </Stack>
       <VideoUpload onSubmit={handleSubmit} />
     </Stack>
   );

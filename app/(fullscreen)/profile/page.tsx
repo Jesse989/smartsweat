@@ -22,6 +22,7 @@ export default async function ProfilePage({
   const updateProfile = async (formData: FormData) => {
     'use server';
 
+    const name = formData.get('name') as string;
     const age = formData.get('age') as string;
     const weight = formData.get('weight') as string;
     const height = formData.get('height') as string;
@@ -34,6 +35,7 @@ export default async function ProfilePage({
     const { data, error } = await supabase
       .from('profiles')
       .update({
+        name,
         status: 'onboarded',
         age: Number(age),
         weight: Number(weight),
@@ -71,6 +73,9 @@ export default async function ProfilePage({
             </Typography>
           </Box>
           <Stack gap={2}>
+            <FormControl>
+              <Input type="text" name="name" placeholder="Name" required />
+            </FormControl>
             <FormControl>
               <Input type="number" name="age" placeholder="Age" required />
             </FormControl>

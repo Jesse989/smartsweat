@@ -2,8 +2,17 @@ import { headers } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { SubmitButton } from '@/components/SubmitButton';
-import { Box, Button, FormControl, Input, Stack, Typography } from '@mui/joy';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  Input,
+  Stack,
+  Typography,
+} from '@mui/joy';
 import Link from 'next/link';
+import { InfoOutlined } from '@mui/icons-material';
 
 export default function SignUp({
   searchParams,
@@ -31,8 +40,7 @@ export default function SignUp({
     });
 
     if (error) {
-      console.error(error);
-      return redirect('/signup?message=Could not authenticate user');
+      return redirect(`/signup?message=${error.message}`);
     }
 
     return redirect('/email');
@@ -64,10 +72,15 @@ export default function SignUp({
               required
             />
           </FormControl>
+
+          {searchParams?.message && (
+            <Typography startDecorator={<InfoOutlined />} color="danger">
+              {searchParams.message}
+            </Typography>
+          )}
         </Stack>
       </Stack>
       <Stack gap={2} flex={0}>
-        {searchParams?.message && <p>{searchParams.message}</p>}
         <SubmitButton formAction={signUp} pendingText="Signing Up...">
           Sign Up
         </SubmitButton>

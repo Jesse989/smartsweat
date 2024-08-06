@@ -37,9 +37,7 @@ export default async function HomePage() {
   return (
     <Stack minHeight="100%" gap={2}>
       <Stack direction="row" justifyContent="space-between">
-        <Typography level="h2">
-          Welcome, {user.user_metadata['name']}!
-        </Typography>
+        <Typography level="h2">Welcome, {profile.name}!</Typography>
         <AuthButtonServer />
       </Stack>
       <Stack direction="row" gap={2} justifyContent="space-between">
