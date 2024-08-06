@@ -1,6 +1,6 @@
 import AppBar from '@/components/AppBar';
 import MobileNavBar from '@/components/MobileNavBar';
-import { Stack } from '@mui/joy';
+import { Box, Stack } from '@mui/joy';
 
 export default function PrivateLayout({
   children,
@@ -8,16 +8,20 @@ export default function PrivateLayout({
   children: React.ReactElement;
 }) {
   return (
-    <Stack height="100vh">
+    <Stack
+      display="grid"
+      gridTemplateRows="64px 1fr 82px"
+      height="100vh"
+      position="relative">
       <AppBar />
-      <Stack
+      <Box
         overflow="auto"
         sx={{
           p: 2,
-          flex: '1 1 0%',
         }}>
         {children}
-      </Stack>
+        <Box minHeight={'82px'} />
+      </Box>
       <MobileNavBar />
     </Stack>
   );
