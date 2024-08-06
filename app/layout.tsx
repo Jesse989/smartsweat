@@ -25,7 +25,7 @@ export default function RootLayout({
           disableGutters
           maxWidth="xs"
           sx={{
-            height: '100%',
+            height: '100vh',
             backgroundColor: 'background.surface',
             border: '1px solid',
             borderColor: 'divider',
@@ -34,7 +34,7 @@ export default function RootLayout({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              height: '100%',
+              height: '100vh',
               position: 'relative',
             }}>
             <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
