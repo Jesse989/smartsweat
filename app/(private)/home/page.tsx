@@ -40,9 +40,7 @@ export default async function HomePage() {
         <Typography level="h2">
           Welcome, {user.user_metadata['name']}!
         </Typography>
-        <IconButton>
-          <AuthButtonServer />
-        </IconButton>
+        <AuthButtonServer />
       </Stack>
       <Stack direction="row" gap={2} justifyContent="space-between">
         <Sheet variant="outlined" sx={{ width: '100%' }}>

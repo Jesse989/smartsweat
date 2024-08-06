@@ -15,5 +15,6 @@ export async function GET(request: Request) {
   }
 
   // URL to redirect to after sign up process completes
+  console.log('Redirecting to:', `${origin}/home`);
   return NextResponse.redirect(`${origin}/home`);
 }
