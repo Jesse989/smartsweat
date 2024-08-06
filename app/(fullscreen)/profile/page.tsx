@@ -19,6 +19,14 @@ export default async function ProfilePage({
     return redirect('/');
   }
 
+  const { data } = await supabase.from('profiles').select().eq('id', user.id);
+
+  if (!data) {
+    throw new Error('Profile not found');
+  }
+
+  const profile = data[0];
+
   const updateProfile = async (formData: FormData) => {
     'use server';
 
@@ -52,8 +60,6 @@ export default async function ProfilePage({
       return redirect('/profile?message=Could not update profile');
     }
 
-    console.log('Profile updated', data);
-
     return redirect('/home');
   };
 
@@ -67,17 +73,32 @@ export default async function ProfilePage({
       <Stack justifyContent="space-between" height="100%">
         <Stack gap={1}>
           <Box px={4} py={4}>
-            <Typography level="title-lg" textAlign="center" fontWeight={500}>
-              Shape Your Fitness Journey: Create Your SmartSweat Profile to
-              Tailor Your Pathway to Peak Health!
+            <Typography level="title-lg" textAlign="center">
+              Shape Your Fitness Journey
+            </Typography>
+            <Typography level="body-md" color="neutral" textAlign="center">
+              Create your SmartSweat profile to tailor your pathway to peak
+              health!
             </Typography>
           </Box>
           <Stack gap={2}>
             <FormControl>
-              <Input type="text" name="name" placeholder="Name" required />
+              <Input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                defaultValue={profile.name ?? ''}
+              />
             </FormControl>
             <FormControl>
-              <Input type="number" name="age" placeholder="Age" required />
+              <Input
+                type="number"
+                name="age"
+                placeholder="Age"
+                required
+                defaultValue={profile.age ?? 0}
+              />
             </FormControl>
             <FormControl>
               <Input
@@ -85,6 +106,7 @@ export default async function ProfilePage({
                 name="weight"
                 placeholder="Weight"
                 required
+                defaultValue={profile.weight ?? 0}
               />
             </FormControl>
             <FormControl>
@@ -93,10 +115,17 @@ export default async function ProfilePage({
                 name="height"
                 placeholder="Height"
                 required
+                defaultValue={profile.height ?? 0}
               />
             </FormControl>
             <FormControl>
-              <Input type="text" name="sex" placeholder="Sex" required />
+              <Input
+                type="text"
+                name="sex"
+                placeholder="Sex"
+                required
+                defaultValue={profile.sex ?? ''}
+              />
             </FormControl>
             <FormControl>
               <Input
@@ -104,6 +133,7 @@ export default async function ProfilePage({
                 name="fitness_level"
                 placeholder="Fitness level"
                 required
+                defaultValue={profile.fitness_level ?? ''}
               />
             </FormControl>
             <FormControl>
@@ -112,14 +142,17 @@ export default async function ProfilePage({
                 name="fitness_goal"
                 placeholder="Fitness goal"
                 required
+                defaultValue={profile.fitness_goal ?? ''}
               />
             </FormControl>
           </Stack>
         </Stack>
         <Stack gap={1} flex={0}>
           {searchParams?.message && <p>{searchParams.message}</p>}
-          <SubmitButton formAction={updateProfile} pendingText="Signing Up...">
-            Let's Go!
+          <SubmitButton
+            formAction={updateProfile}
+            pendingText="Updating profile...">
+            Submit
           </SubmitButton>
           <Link href="/home">
             <Button fullWidth variant="outlined" color="neutral">

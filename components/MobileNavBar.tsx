@@ -11,32 +11,30 @@ export default function MobileNav() {
   return (
     <Stack
       direction="row"
-      justifyContent="space-around"
-      sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+      justifyContent="space-between"
+      sx={{
+        p: 2,
+        px: 4,
+        borderTop: '1px solid',
+        borderColor: 'divider',
+        bgcolor: 'background.surface',
+      }}>
       <Link href="/home">
         <Stack justifyContent="center" alignItems="center" width="60px">
           <Home
             sx={{ fontSize: '32px' }}
             color={pathname.includes('home') ? 'primary' : 'action'}
           />
-          <Typography
-            level="body-xs"
-            color={pathname.includes('home') ? 'primary' : 'neutral'}>
-            Home
-          </Typography>
+          <Typography level="body-xs">Home</Typography>
         </Stack>
       </Link>
-      <Link href="/upload">
+      <Link href="/workouts">
         <Stack justifyContent="center" alignItems="center" width="60px">
           <Favorite
             sx={{ fontSize: '32px' }}
-            color={pathname.includes('upload') ? 'primary' : 'action'}
+            color={pathname.includes('workouts') ? 'primary' : 'action'}
           />
-          <Typography
-            level="body-xs"
-            color={pathname.includes('upload') ? 'primary' : 'neutral'}>
-            Workout
-          </Typography>
+          <Typography level="body-xs">Workouts</Typography>
         </Stack>
       </Link>
       <Link href="/profile">
@@ -45,11 +43,7 @@ export default function MobileNav() {
             sx={{ fontSize: '32px' }}
             color={pathname.includes('profile') ? 'primary' : 'action'}
           />
-          <Typography
-            level="body-xs"
-            color={pathname.includes('profile') ? 'primary' : 'neutral'}>
-            My Profile
-          </Typography>
+          <Typography level="body-xs">My Profile</Typography>
         </Stack>
       </Link>
     </Stack>

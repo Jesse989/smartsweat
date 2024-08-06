@@ -1,12 +1,12 @@
 import { Markdown } from '@/components/Markdown';
 import { createClient } from '@/utils/supabase/server';
-import { Sheet, Stack, Typography } from '@mui/joy';
+import { AspectRatio, Sheet, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 
 export default async function ResultsPage({
-  searchParams,
+  params,
 }: {
-  searchParams: { workout_id: string };
+  params: { workout_id: string };
 }) {
   const supabase = createClient();
 
@@ -21,7 +21,7 @@ export default async function ResultsPage({
   const { data } = await supabase
     .from('workouts')
     .select('*')
-    .eq('id', searchParams.workout_id);
+    .eq('id', params.workout_id);
 
   if (!data) {
     throw new Error('Workout not found');
@@ -30,25 +30,27 @@ export default async function ResultsPage({
   // workout is data[0]
   const workout = data[0];
 
-  console.log(workout);
-
   return (
     <Stack minHeight="100%" gap={2}>
-      <Typography level="title-lg" pt={1}>
+      <Typography level="h3">Workout Results</Typography>
+      <Sheet variant="outlined">
+        <AspectRatio ratio={16 / 9} objectFit="contain">
+          <video
+            height="100%"
+            width="100%"
+            src={workout.video_url ?? ''}
+            controls
+            title={workout.exercise_type}
+          />
+        </AspectRatio>
+      </Sheet>
+      <Typography level="body-md">
         Great job on your workout! Here are your personalized results to help
         you further refine and enhance your exercise routine.
       </Typography>
-      <Sheet variant="outlined">
-        {/* make the video not overflow */}
-        <video
-          src="https://ddgaipozxevgcgmsnvba.supabase.co/storage/v1/object/public/videos/downward-dog-2.mp4"
-          style={{ width: '100%', height: '200px' }}
-          controls
-        />
-      </Sheet>
       <Stack>
         <Typography level="title-lg" color="primary">
-          Exercise
+          Exercise Name
         </Typography>
         <Markdown>{workout.exercise_type}</Markdown>
       </Stack>

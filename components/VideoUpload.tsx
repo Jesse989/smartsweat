@@ -33,8 +33,6 @@ export default function VideoUpload({
     const file = e.target.files[0];
     const bucket = 'videos';
 
-    console.log('File:', file);
-
     // Convert file size from bytes to kilobytes
     const fileSizeInKB = (file.size / 1024).toFixed(2); // Convert to KB and round to 2 decimal places
     setVideoSize(fileSizeInKB);
@@ -50,7 +48,6 @@ export default function VideoUpload({
       return;
     }
 
-    console.log('File uploaded successfully:', data);
     setIsUploading(false);
     setVideoTitle(data.path);
   };

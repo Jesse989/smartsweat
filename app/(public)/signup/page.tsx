@@ -2,15 +2,7 @@ import { headers } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { SubmitButton } from '@/components/SubmitButton';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormHelperText,
-  Input,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import { Box, Button, FormControl, Input, Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { InfoOutlined } from '@mui/icons-material';
 
@@ -26,10 +18,6 @@ export default function SignUp({
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const supabase = createClient();
-
-    console.log('origin', origin);
-    console.log('email', email);
-    console.log('password', password);
 
     const { error } = await supabase.auth.signUp({
       email,

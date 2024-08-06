@@ -1,6 +1,8 @@
+import NewExerciseButton from '@/components/NewExerciseButton';
 import { createClient } from '@/utils/supabase/server';
 import { Add } from '@mui/icons-material';
-import { Button, Sheet, Stack, Typography } from '@mui/joy';
+import { AspectRatio, Button, Sheet, Stack, Typography } from '@mui/joy';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function WorkoutsPage() {
@@ -14,41 +16,46 @@ export default async function WorkoutsPage() {
     return redirect('/');
   }
 
+  const { data } = await supabase
+    .from('workouts')
+    .select('*')
+    .eq('user_id', user.id);
+
+  if (!data) {
+    throw new Error('Workouts not found');
+  }
+
+  const workouts = data;
+
   return (
     <Stack minHeight="100%" gap={2}>
       <Typography level="h3" textAlign="center" py={1}>
         Select a Workout and Let's Get Moving!
       </Typography>
-      <Button startDecorator={<Add />}>Upload new exercise</Button>
-      <Sheet variant="outlined">
-        <Stack
-          height="200px"
-          justifyContent="flex-end"
-          alignItems="flex-start"
-          p={2}>
-          <Typography level="title-lg">Workout 001</Typography>
+      <NewExerciseButton />
+      {workouts?.map((workout: any) => (
+        <Stack key={workout.id} gap={1}>
+          <Sheet variant="outlined">
+            <AspectRatio ratio={16 / 9} objectFit="contain">
+              <video
+                height="100%"
+                width="100%"
+                src={workout.video_url}
+                controls
+                title={workout.exercise_type}
+              />
+            </AspectRatio>
+          </Sheet>
+          <Stack>
+            <Link href={`/results/${workout.id}`}>
+              <Typography level="title-md">{workout.exercise_type}</Typography>
+            </Link>
+            <Typography level="body-sm">
+              {new Date(workout.created_at).toLocaleString()}
+            </Typography>
+          </Stack>
         </Stack>
-      </Sheet>
-
-      <Sheet variant="outlined">
-        <Stack
-          height="200px"
-          justifyContent="flex-end"
-          alignItems="flex-start"
-          p={2}>
-          <Typography level="title-lg">Workout 002</Typography>
-        </Stack>
-      </Sheet>
-
-      <Sheet variant="outlined">
-        <Stack
-          height="200px"
-          justifyContent="flex-end"
-          alignItems="flex-start"
-          p={2}>
-          <Typography level="title-lg">Workout 003</Typography>
-        </Stack>
-      </Sheet>
+      ))}
     </Stack>
   );
 }
