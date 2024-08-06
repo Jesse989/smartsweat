@@ -9,7 +9,7 @@ export default function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <Box position="sticky" bottom={0}>
+    <Box position={{ xs: 'fixed', sm: 'sticky' }} bottom={0} left={0} right={0}>
       <Stack
         direction="row"
         justifyContent="space-between"

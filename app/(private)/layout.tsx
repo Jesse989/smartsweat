@@ -20,7 +20,7 @@ export default function PrivateLayout({
           p: 2,
         }}>
         {children}
-        <Box minHeight={'82px'} />
+        {/* <Box minHeight={'82px'} /> */}
       </Box>
       <MobileNavBar />
     </Stack>
