@@ -1,7 +1,6 @@
 import { SubmitButton } from '@/components/SubmitButton';
 import { createClient } from '@/utils/supabase/server';
-import { Box, Button, FormControl, Input, Stack, Typography } from '@mui/joy';
-import Link from 'next/link';
+import { FormControl, Input, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 
 export default async function ProfilePage({
@@ -40,7 +39,7 @@ export default async function ProfilePage({
 
     const supabase = createClient();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('profiles')
       .update({
         name,
@@ -52,12 +51,10 @@ export default async function ProfilePage({
         fitness_level,
         fitness_goal,
       })
-      .eq('id', user.id)
-      .select();
+      .eq('id', user.id);
 
     if (error) {
-      console.error('Error updating profile:', error);
-      return redirect('/profile?message=Could not update profile');
+      return redirect(`/profile?message=${error.message}`);
     }
 
     return redirect('/home');
@@ -68,19 +65,17 @@ export default async function ProfilePage({
       component="form"
       minHeight="100%"
       bgcolor="background.surface"
-      p={2}
       justifyContent="space-between">
-      <Stack justifyContent="space-between" height="100%">
-        <Stack gap={1}>
-          <Box px={4} py={4}>
-            <Typography level="title-lg" textAlign="center">
-              Shape Your Fitness Journey
-            </Typography>
-            <Typography level="body-md" color="neutral" textAlign="center">
+      <Stack justifyContent="space-between" minHeight="100%" gap={3}>
+        <Stack gap={2}>
+          <Stack gap={0.5} textAlign="center" py={1}>
+            <Typography level="h3">Shape Your Fitness Journey</Typography>
+            <Typography level="body-md" textColor="text.secondary">
               Create your SmartSweat profile to tailor your pathway to peak
               health!
             </Typography>
-          </Box>
+          </Stack>
+
           <Stack gap={2}>
             <FormControl>
               <Input
@@ -154,11 +149,6 @@ export default async function ProfilePage({
             pendingText="Updating profile...">
             Submit
           </SubmitButton>
-          <Link href="/home">
-            <Button fullWidth variant="outlined" color="neutral">
-              Cancel
-            </Button>
-          </Link>
         </Stack>
       </Stack>
     </Stack>

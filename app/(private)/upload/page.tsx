@@ -64,8 +64,8 @@ export default async function UploadPage() {
 
   return (
     <Stack gap={2}>
-      <Stack gap={0.5}>
-        <Typography level="h2">Upload Your Video</Typography>
+      <Stack gap={0.5} textAlign="center" py={1}>
+        <Typography level="h3">Upload Your Video</Typography>
         <Typography level="body-md" textColor="text.secondary">
           Upload a video of your exercise routine and let SmartSweat AI guide
           you towards precision and safety.
