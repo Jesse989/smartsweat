@@ -24,6 +24,7 @@ export default function RootLayout({
         component="body"
         sx={{
           bgcolor: '#161b1c',
+          height: '100vh',
         }}>
         <Container
           disableGutters
@@ -36,7 +37,7 @@ export default function RootLayout({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              height: '100vh',
+              height: '100%',
               position: 'relative',
             }}>
             <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
