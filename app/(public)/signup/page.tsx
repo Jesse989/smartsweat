@@ -42,12 +42,17 @@ export default function SignUp({
       p={2}
       justifyContent="space-between">
       <Stack>
-        <Box p={4}>
+        <Stack p={3} gap={0.5}>
           <Typography level="title-lg" textAlign="center">
-            Get Ready to Ignite Your Fitness Spark! Sign Up to SmartSweat and
-            Transform Your Workout Routine Today!
+            Ignite Your Fitness Spark!
           </Typography>
-        </Box>
+          <Typography
+            level="body-md"
+            textAlign="center"
+            textColor="text.secondary">
+            Sign up to SmartSweat and transform your workout routine today!
+          </Typography>
+        </Stack>
         <Stack gap={2}>
           <FormControl>
             <Input name="email" placeholder="Email" required />

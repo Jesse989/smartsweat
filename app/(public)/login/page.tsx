@@ -45,12 +45,14 @@ export default function Login({
       p={2}
       justifyContent="space-between">
       <Stack gap={4}>
-        <Box p={4}>
+        <Stack p={4} gap={0.5}>
           <Typography level="title-lg" textAlign="center">
-            Get Ready to Ignite Your Fitness Spark! Log In to SmartSweat and
-            Transform Your Workout Routine Today!
+            Ignite Your Fitness Spark!
           </Typography>
-        </Box>
+          <Typography level="body-md" textAlign="center">
+            Log In to SmartSweat and Transform Your Workout Routine Today!
+          </Typography>
+        </Stack>
         <AuthButtonServer />
         <Divider>or</Divider>
 
