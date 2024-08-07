@@ -20,14 +20,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Box component="body" bgcolor="background.level1">
+      <Box
+        component="body"
+        sx={{
+          bgcolor: '#161b1c',
+        }}>
         <Container
           disableGutters
           maxWidth="xs"
           sx={{
-            height: '100vh',
             backgroundColor: 'background.surface',
-            border: '1px solid',
             borderColor: 'divider',
           }}>
           <Box

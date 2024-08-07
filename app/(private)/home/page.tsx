@@ -2,7 +2,7 @@ import AuthButtonServer from '@/app/(public)/login/auth-button-server';
 import NewExerciseButton from '@/components/NewExerciseButton';
 import WorkoutStats from '@/components/WorkoutStats';
 import { createClient } from '@/utils/supabase/server';
-import { AspectRatio, Box, Stack, Typography } from '@mui/joy';
+import { AspectRatio, Box, Skeleton, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import nightSky from '@/assets/night-sky.png';
@@ -37,7 +37,7 @@ export default async function HomePage() {
   return (
     <Stack minHeight="100%" gap={2}>
       <Stack direction="row" justifyContent="space-between">
-        <Typography level="h3">Hi, {profile.name}!</Typography>
+        <Typography level="h3">Hi, {profile.name}</Typography>
         <AuthButtonServer />
       </Stack>
       <WorkoutStats />
