@@ -21,7 +21,7 @@ export default function LandingPage() {
         p={2}
         sx={{
           background:
-            'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 80%)',
+            'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.6) 100%)',
         }}>
         <Stack flex={1} justifyContent="center" alignItems="center" gap={2}>
           <Logo />
