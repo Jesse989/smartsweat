@@ -11,6 +11,7 @@ export default function MobileNav() {
   return (
     <Box position={{ xs: 'fixed', sm: 'sticky' }} bottom={0} left={0} right={0}>
       <Stack
+        height="84px"
         direction="row"
         justifyContent="space-between"
         sx={{

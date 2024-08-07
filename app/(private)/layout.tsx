@@ -10,7 +10,7 @@ export default function PrivateLayout({
   return (
     <Stack
       display="grid"
-      gridTemplateRows="64px 1fr 82px"
+      gridTemplateRows="64px 1fr 84px"
       height="100vh"
       position="relative">
       <AppBar />
@@ -20,7 +20,6 @@ export default function PrivateLayout({
           p: 2,
         }}>
         {children}
-        {/* <Box minHeight={'82px'} /> */}
       </Box>
       <MobileNavBar />
     </Stack>
