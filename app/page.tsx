@@ -2,6 +2,7 @@ import { Button, Stack, Typography } from '@mui/joy';
 import landingBg from './landing-bg.png';
 import Image from 'next/image';
 import Link from 'next/link';
+import Logo from '@/components/Logo';
 
 export default function LandingPage() {
   return (
@@ -14,16 +15,21 @@ export default function LandingPage() {
       />
       <Stack
         zIndex={1}
-        justifyContent="space-around"
+        justifyContent="space-between"
+        gap={12}
         minHeight="100%"
         p={2}
-        bgcolor="rgba(0, 0, 0, 0.8)">
-        <Stack flex={1} justifyContent="center" px={2}>
+        sx={{
+          background:
+            'linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 80%)',
+        }}>
+        <Stack flex={1} justifyContent="center" alignItems="center" gap={2}>
+          <Logo />
           <Typography
             level="h3"
             fontWeight={400}
             textAlign="center"
-            textColor="common.white">
+            textColor="text.secondary">
             Revolutionize Your Fitness Journey with AI-Powered Workouts for a
             Healthier, Smarter You!
           </Typography>
