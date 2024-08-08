@@ -66,75 +66,13 @@ const theme = extendTheme({
     },
   },
   components: {
-    JoyButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 'sm',
-        },
-      },
-    },
-    JoyIconButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: '50px',
-        },
-      },
-    },
-    JoySelect: {
-      styleOverrides: {
-        root: {
-          borderRadius: '50px',
-        },
-        listbox: {
-          borderRadius: '16px',
-        },
-      },
-    },
-    JoyModalDialog: {
-      styleOverrides: {
-        root: {
-          borderRadius: '32px',
-        },
-      },
-    },
-    JoyInput: {
-      styleOverrides: {
-        root: {
-          borderRadius: '50px',
-        },
-        input: {
-          borderRadius: '50px',
-        },
-      },
-    },
-    JoyAutocompleteListbox: {
-      styleOverrides: {
-        root: {
-          borderRadius: '50px',
-        },
-      },
-    },
-    JoyTextarea: {
-      styleOverrides: {
-        root: {
-          borderRadius: '16px',
-        },
-      },
-    },
-    JoyAutocomplete: {
-      styleOverrides: {
-        root: {
-          borderRadius: '16px',
-        },
-      },
-    },
-    JoyListItemButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: '50px',
-        },
-      },
-    },
+    // JoyButton: {
+    //   styleOverrides: {
+    //     root: {
+    //       borderRadius: 'lg',
+    //     },
+    //   },
+    // },
   },
 });
 

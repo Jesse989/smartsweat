@@ -77,11 +77,14 @@ export default function SignUp({
         <SubmitButton formAction={signUp} pendingText="Signing Up...">
           Sign Up
         </SubmitButton>
-        <Link href="/">
-          <Button fullWidth variant="outlined" color="neutral">
-            Cancel
-          </Button>
-        </Link>
+        <Button
+          component={Link}
+          href="/"
+          fullWidth
+          variant="outlined"
+          color="neutral">
+          Cancel
+        </Button>
       </Stack>
     </Stack>
   );

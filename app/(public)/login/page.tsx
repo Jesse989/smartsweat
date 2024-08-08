@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { SubmitButton } from '@/components/SubmitButton';
 import {
-  Box,
   Button,
   Divider,
   FormControl,
@@ -50,7 +49,7 @@ export default function Login({
             Ignite Your Fitness Spark!
           </Typography>
           <Typography level="body-md" textAlign="center">
-            Log In to SmartSweat and Transform Your Workout Routine Today!
+            Login to SmartSweat and transform your workout routine today!
           </Typography>
         </Stack>
         <AuthButtonServer />
@@ -76,11 +75,14 @@ export default function Login({
         <SubmitButton formAction={signIn} pendingText="Signing In...">
           Login
         </SubmitButton>
-        <Link href="/">
-          <Button fullWidth variant="outlined" color="neutral">
-            Cancel
-          </Button>
-        </Link>
+        <Button
+          component={Link}
+          href="/"
+          fullWidth
+          variant="outlined"
+          color="neutral">
+          Cancel
+        </Button>
       </Stack>
     </Stack>
   );

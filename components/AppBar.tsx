@@ -6,7 +6,7 @@ export default function AppBar() {
   return (
     <Stack
       direction="row"
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
       height="64px"
       sx={{
@@ -16,7 +16,6 @@ export default function AppBar() {
         borderColor: 'divider',
       }}>
       <Logo />
-      <ColorSchemeToggle />
     </Stack>
   );
 }

@@ -8,14 +8,11 @@ export default function PrivateLayout({
   children: React.ReactElement;
 }) {
   return (
-    <Stack
-      display="grid"
-      gridTemplateRows="64px 1fr 84px"
-      height="100vh"
-      position="relative">
+    <Stack display="grid" gridTemplateRows="64px 1fr 84px" height="100vh">
       <AppBar />
       <Box
         overflow="auto"
+        position="relative"
         sx={{
           p: 2,
         }}>

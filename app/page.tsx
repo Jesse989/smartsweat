@@ -35,14 +35,12 @@ export default function LandingPage() {
           </Typography>
         </Stack>
         <Stack gap={2} flex={0}>
-          <Link href="/login" passHref>
-            <Button fullWidth>Login</Button>
-          </Link>
-          <Link href="/signup" passHref>
-            <Button variant="outlined" fullWidth>
-              Sign Up
-            </Button>
-          </Link>
+          <Button component={Link} href="/login" fullWidth>
+            Login
+          </Button>
+          <Button component={Link} href="/signup" fullWidth variant="outlined">
+            Sign Up
+          </Button>
         </Stack>
       </Stack>
     </>

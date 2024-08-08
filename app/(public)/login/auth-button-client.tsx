@@ -29,7 +29,6 @@ export default function AuthButtonClient({ user }: Props) {
         redirectTo: `${location.origin}/auth/callback`,
       },
     });
-    setLoading(false);
   };
 
   return user ? (

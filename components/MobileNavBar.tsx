@@ -1,7 +1,7 @@
 'use client';
 
 import { AccountCircle, Favorite, Home } from '@mui/icons-material';
-import { Box, Stack, Typography } from '@mui/joy';
+import { Box, IconButton, Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -21,7 +21,7 @@ export default function MobileNav() {
           borderColor: 'divider',
           bgcolor: 'background.surface',
         }}>
-        <Link href="/home">
+        <IconButton component={Link} href="/home">
           <Stack justifyContent="center" alignItems="center" width="60px">
             <Home
               sx={{ fontSize: '32px' }}
@@ -29,8 +29,8 @@ export default function MobileNav() {
             />
             <Typography level="body-xs">Home</Typography>
           </Stack>
-        </Link>
-        <Link href="/workouts">
+        </IconButton>
+        <IconButton component={Link} href="/workouts">
           <Stack justifyContent="center" alignItems="center" width="60px">
             <Favorite
               sx={{ fontSize: '32px' }}
@@ -38,8 +38,8 @@ export default function MobileNav() {
             />
             <Typography level="body-xs">Workouts</Typography>
           </Stack>
-        </Link>
-        <Link href="/profile">
+        </IconButton>
+        <IconButton component={Link} href="/profile">
           <Stack justifyContent="center" alignItems="center" width="60px">
             <AccountCircle
               sx={{ fontSize: '32px' }}
@@ -47,7 +47,7 @@ export default function MobileNav() {
             />
             <Typography level="body-xs">My Profile</Typography>
           </Stack>
-        </Link>
+        </IconButton>
       </Stack>
     </Box>
   );

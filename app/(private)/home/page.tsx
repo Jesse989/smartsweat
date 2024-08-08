@@ -1,12 +1,12 @@
 import AuthButtonServer from '@/app/(public)/login/auth-button-server';
-import NewExerciseButton from '@/components/NewExerciseButton';
 import WorkoutStats from '@/components/WorkoutStats';
 import { createClient } from '@/utils/supabase/server';
-import { AspectRatio, Box, Skeleton, Stack, Typography } from '@mui/joy';
+import { AspectRatio, Box, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import nightSky from '@/assets/night-sky.png';
 import Link from 'next/link';
+import NewExerciseIconButton from '@/components/NewExerciseIconButton';
 
 export default async function HomePage() {
   const supabase = createClient();
@@ -35,8 +35,11 @@ export default async function HomePage() {
   }
 
   return (
-    <Stack minHeight="100%" gap={2}>
-      <Stack direction="row" justifyContent="space-between">
+    <Stack minHeight="100%" gap={2} position="relative">
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="baseline">
         <Typography level="h3">Hi, {profile.name}</Typography>
         <AuthButtonServer />
       </Stack>
@@ -44,7 +47,12 @@ export default async function HomePage() {
       <Link href="/workouts">
         <Box position="relative">
           <AspectRatio ratio={16 / 9} variant="outlined">
-            <Image alt="Mountains" src={nightSky} layout="fill" />
+            <Image
+              style={{ objectFit: 'cover' }}
+              alt="Mountains"
+              priority
+              src={nightSky}
+            />
           </AspectRatio>
           <Typography
             position="absolute"
@@ -56,7 +64,7 @@ export default async function HomePage() {
           </Typography>
         </Box>
       </Link>
-      <NewExerciseButton />
+      <NewExerciseIconButton />
     </Stack>
   );
 }

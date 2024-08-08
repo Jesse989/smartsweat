@@ -14,7 +14,7 @@ export default function Logo() {
   return (
     <Stack direction="row" alignItems="center" height="26px">
       <SmartSweatIcon sx={{ width: '128px', color: logoColor }} />
-      <YogaIcon sx={{ fontSize: '50px', mt: -0.6, ml: -1.8 }} />
+      <YogaIcon sx={{ fontSize: '50px', mt: -0.6, ml: -1.8, mr: -1.2 }} />
     </Stack>
   );
 }

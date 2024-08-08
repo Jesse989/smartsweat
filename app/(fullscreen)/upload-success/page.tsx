@@ -27,7 +27,7 @@ export default async function UploadSuccessPage() {
         Exciting news awaits! Your results are in and can be viewed in the 'My
         Workouts' page. Keep up the great work!
       </Typography>
-      <Link href="/results?workout_id=1">View results</Link>
+      <Link href="/results/1">View results</Link>
     </Stack>
   );
 }

@@ -4,10 +4,8 @@ import Link from 'next/link';
 
 export default async function NewExerciseButton() {
   return (
-    <Link href="/upload">
-      <Button fullWidth startDecorator={<Add />}>
-        Upload new exercise
-      </Button>
-    </Link>
+    <Button component={Link} href="/upload" fullWidth startDecorator={<Add />}>
+      Upload new exercise
+    </Button>
   );
 }
