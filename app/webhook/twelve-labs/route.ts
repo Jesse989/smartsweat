@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
-  console.log('TEST');
   // Update the workflow with the matching twelve_labs_task_id
   // to the status 'completed'
   const supabase = createClient();
@@ -10,10 +9,10 @@ export async function POST(request: Request) {
   const { type, data } = await request.json();
 
   console.log(`Received Twelve Labs webhook: ${type}`);
-  console.log(`Data: ${data}`);
 
   if (type === 'index.task.ready') {
     const { id } = data;
+    console.log(`Id: ${id}`);
 
     await supabase
       .from('workouts')
