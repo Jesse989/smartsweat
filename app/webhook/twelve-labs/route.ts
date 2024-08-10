@@ -1,33 +1,16 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
 
-function createClient(options = {}) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+function createClient() {
+  const supabaseUrl = process.env.SUPABASE_URL!;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
-  return createSupabaseClient(supabaseUrl, supabaseKey, options);
+  return createSupabaseClient(supabaseUrl, supabaseKey);
 }
 
 export async function POST(request: Request) {
-  // Generate a JWT with the webhook_role
-  const payload = {
-    role: 'webhook',
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour expiration
-  };
-
-  const secret = process.env.SUPABASE_JWT_SECRET!;
-  const token = jwt.sign(payload, secret);
-
   // Create the Supabase client with the JWT
-  const supabase = createClient({
-    global: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  });
+  const supabase = createClient();
 
   const { type, data } = await request.json();
 
