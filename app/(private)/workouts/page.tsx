@@ -51,9 +51,7 @@ export default async function WorkoutsPage() {
             </CardOverflow>
             <Stack>
               <Link href={`/results/${workout.id}`}>
-                <Typography level="title-md">
-                  {workout.exercise_type}
-                </Typography>
+                <Typography level="title-md">{workout.id}</Typography>
               </Link>
               <Typography level="body-sm">
                 {new Date(workout.created_at).toLocaleString()}

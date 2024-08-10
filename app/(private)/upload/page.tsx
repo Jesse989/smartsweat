@@ -33,6 +33,25 @@ export default async function UploadPage({
   const profile = data[0];
   const fileName = profile.upload_video_url?.split('/').pop() ?? '';
 
+  const handleSetVideoUrl = async (videoUrl: string) => {
+    'use server';
+
+    const supabase = createClient();
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        upload_video_url: videoUrl,
+      })
+      .eq('id', user.id);
+
+    if (error) {
+      return redirect(`/upload?message=${error.message}`);
+    }
+
+    return revalidatePath('/upload');
+  };
+
   const handleSubmit = async () => {
     'use server';
 
@@ -66,28 +85,12 @@ export default async function UploadPage({
       return redirect(`/upload?message=${error.message}`);
     }
 
+    // Reset the users upload_video_url
+    await handleSetVideoUrl('');
+
     const result = data[0];
 
     return redirect(`/results/${result.id}`);
-  };
-
-  const handleSetVideoUrl = async (videoUrl: string) => {
-    'use server';
-
-    const supabase = createClient();
-
-    const { error } = await supabase
-      .from('profiles')
-      .update({
-        upload_video_url: videoUrl,
-      })
-      .eq('id', user.id);
-
-    if (error) {
-      return redirect(`/upload?message=${error.message}`);
-    }
-
-    return revalidatePath('/upload');
   };
 
   const handleClear = async () => {

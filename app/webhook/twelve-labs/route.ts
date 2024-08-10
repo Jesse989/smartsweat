@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
+  console.log('TEST');
   // Update the workflow with the matching twelve_labs_task_id
   // to the status 'completed'
   const supabase = createClient();
