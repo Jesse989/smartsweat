@@ -14,10 +14,14 @@ export async function POST(request: Request) {
     const { id } = data;
     console.log(`Id: ${id}`);
 
-    await supabase
+    const { error } = await supabase
       .from('workouts')
       .update({ status: 'completed' })
       .eq('twelve_labs_task_id', id);
+
+    if (error) {
+      console.error(error);
+    }
   }
 
   return NextResponse.json({ status: 'ok' });
