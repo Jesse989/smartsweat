@@ -1,4 +1,3 @@
-import ColorSchemeToggle from './ColorSchemeToggle';
 import { Stack } from '@mui/joy';
 import Logo from './Logo';
 

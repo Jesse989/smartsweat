@@ -6,7 +6,6 @@ import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import nightSky from '@/assets/night-sky.png';
 import Link from 'next/link';
-import NewExerciseIconButton from '@/components/NewExerciseIconButton';
 
 export default async function HomePage() {
   const supabase = createClient();
@@ -46,7 +45,10 @@ export default async function HomePage() {
       <WorkoutStats />
       <Link href="/workouts">
         <Box position="relative">
-          <AspectRatio ratio={16 / 9} variant="outlined">
+          <AspectRatio
+            ratio={16 / 9}
+            variant="outlined"
+            sx={{ borderRadius: 'md' }}>
             <Image
               style={{ objectFit: 'cover' }}
               alt="Mountains"
@@ -60,11 +62,10 @@ export default async function HomePage() {
             textAlign="center"
             left="16px"
             bottom="16px">
-            Workouts
+            My workouts
           </Typography>
         </Box>
       </Link>
-      <NewExerciseIconButton />
     </Stack>
   );
 }

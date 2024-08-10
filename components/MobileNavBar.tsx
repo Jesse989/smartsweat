@@ -1,6 +1,6 @@
 'use client';
 
-import { AccountCircle, Favorite, Home } from '@mui/icons-material';
+import { AccountCircle, AddCircle, Favorite, Home } from '@mui/icons-material';
 import { Box, IconButton, Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,7 +16,6 @@ export default function MobileNav() {
         justifyContent="space-between"
         sx={{
           p: 2,
-          px: 4,
           borderTop: '1px solid',
           borderColor: 'divider',
           bgcolor: 'background.surface',
@@ -37,6 +36,15 @@ export default function MobileNav() {
               color={pathname.includes('workouts') ? 'primary' : 'action'}
             />
             <Typography level="body-xs">Workouts</Typography>
+          </Stack>
+        </IconButton>
+        <IconButton component={Link} href="/upload">
+          <Stack justifyContent="center" alignItems="center" width="60px">
+            <AddCircle
+              sx={{ fontSize: '32px' }}
+              color={pathname.includes('upload') ? 'primary' : 'action'}
+            />
+            <Typography level="body-xs">Upload</Typography>
           </Stack>
         </IconButton>
         <IconButton component={Link} href="/profile">

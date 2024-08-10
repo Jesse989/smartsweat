@@ -1,18 +1,5 @@
-import NewExerciseButton from '@/components/NewExerciseButton';
-import NewExerciseIconButton from '@/components/NewExerciseIconButton';
 import { createClient } from '@/utils/supabase/server';
-import { Add } from '@mui/icons-material';
-import {
-  AspectRatio,
-  Box,
-  Button,
-  Card,
-  CardOverflow,
-  IconButton,
-  Sheet,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import { AspectRatio, Card, CardOverflow, Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -75,7 +62,6 @@ export default async function WorkoutsPage() {
           </Card>
         ))}
       </Stack>
-      <NewExerciseIconButton />
     </>
   );
 }

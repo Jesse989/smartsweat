@@ -5,6 +5,7 @@ export async function uploadFile(
   bucketName: string,
   fileName: string,
   file: File,
+  setUploadProgress: (progress: number) => void,
 ) {
   const supabase = createClient();
   const {
@@ -28,7 +29,7 @@ export async function uploadFile(
       metadata: {
         bucketName: bucketName,
         objectName: fileName,
-        contentType: 'image/png',
+        contentType: 'video/mp4',
         cacheControl: '3600',
       },
       chunkSize: 6 * 1024 * 1024, // NOTE: it must be set to 6MB (for now) do not change it
@@ -37,11 +38,10 @@ export async function uploadFile(
         reject(error);
       },
       onProgress: function (bytesUploaded, bytesTotal) {
-        var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
-        console.log(bytesUploaded, bytesTotal, percentage + '%');
+        const percentage = (bytesUploaded / bytesTotal) * 100;
+        setUploadProgress(percentage);
       },
       onSuccess: function () {
-        console.log('Download %s from %s', upload.file, upload.url);
         resolve('Success!');
       },
     });

@@ -20,6 +20,7 @@ export type Database = {
           name: string | null
           sex: string | null
           status: string | null
+          upload_video_url: string | null
           weight: number | null
         }
         Insert: {
@@ -32,6 +33,7 @@ export type Database = {
           name?: string | null
           sex?: string | null
           status?: string | null
+          upload_video_url?: string | null
           weight?: number | null
         }
         Update: {
@@ -44,6 +46,7 @@ export type Database = {
           name?: string | null
           sex?: string | null
           status?: string | null
+          upload_video_url?: string | null
           weight?: number | null
         }
         Relationships: [
@@ -60,12 +63,13 @@ export type Database = {
         Row: {
           alt_exercise: string | null
           created_at: string
-          exercise_type: string
+          exercise_type: string | null
           id: number
           issues_with_form: string | null
           portal_convo_id: string | null
           portal_form_id: string | null
           recommendations: string | null
+          status: string
           twelve_labs_task_id: string | null
           user_id: string
           video_url: string | null
@@ -73,12 +77,13 @@ export type Database = {
         Insert: {
           alt_exercise?: string | null
           created_at?: string
-          exercise_type: string
+          exercise_type?: string | null
           id?: number
           issues_with_form?: string | null
           portal_convo_id?: string | null
           portal_form_id?: string | null
           recommendations?: string | null
+          status: string
           twelve_labs_task_id?: string | null
           user_id: string
           video_url?: string | null
@@ -86,12 +91,13 @@ export type Database = {
         Update: {
           alt_exercise?: string | null
           created_at?: string
-          exercise_type?: string
+          exercise_type?: string | null
           id?: number
           issues_with_form?: string | null
           portal_convo_id?: string | null
           portal_form_id?: string | null
           recommendations?: string | null
+          status?: string
           twelve_labs_task_id?: string | null
           user_id?: string
           video_url?: string | null

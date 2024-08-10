@@ -35,6 +35,7 @@ const StyledH4 = styled('h4')`
 `;
 const StyledP = styled('p')`
   line-height: 26px;
+  margin: 0;
 `;
 
 type Props = {

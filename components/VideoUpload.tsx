@@ -1,29 +1,33 @@
 'use client';
 
 import { uploadFile } from '@/utils/uploads';
-import { Check, Error as ErrorIcon, UploadFile } from '@mui/icons-material';
+import { Error as ErrorIcon, UploadFile } from '@mui/icons-material';
 import {
   AspectRatio,
-  Button,
   CircularProgress,
   Sheet,
   Stack,
   Typography,
 } from '@mui/joy';
-import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 export default function VideoUpload({
-  onSubmit,
+  userId,
+  videoUrl,
+  setVideoUrl,
 }: {
-  onSubmit: (videoUrl: string) => void;
+  userId: string;
+  videoUrl?: string;
+  setVideoUrl: (videoUrl: string) => Promise<void>;
 }) {
-  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [videoTitle, setVideoTitle] = useState('');
-  const [videoSize, setVideoSize] = useState('');
   const [error, setError] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
+
+  const handleSheetClick = () => {
+    fileInputRef.current?.click();
+  };
 
   // Handle file upload event
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,14 +39,10 @@ export default function VideoUpload({
       const file = e.target.files[0];
       const bucket = 'videos';
 
-      // Convert file size from bytes to kilobytes
-      const fileSizeInKB = (file.size / 1024).toFixed(2); // Convert to KB and round to 2 decimal places
-      setVideoSize(fileSizeInKB);
-
-      const fileName = `${Date.now()}-${file.name}`;
-
-      await uploadFile(bucket, fileName, file);
-      setVideoTitle(file.name);
+      const fileName = `${userId}/${file.name}`;
+      await uploadFile(bucket, fileName, file, setUploadProgress);
+      const videoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
+      await setVideoUrl(videoUrl);
     } catch (error) {
       if (error instanceof Error) {
         setError('Error uploading video!');
@@ -53,16 +53,6 @@ export default function VideoUpload({
     }
   };
 
-  const handleSubmit = async () => {
-    const videoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/${videoTitle}`;
-    onSubmit(videoUrl);
-    router.push('/upload-loading');
-  };
-
-  const handleSheetClick = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
     <Stack justifyContent="space-between" gap={3} minHeight="100%">
       <Stack gap={2}>
@@ -70,59 +60,55 @@ export default function VideoUpload({
           variant="plain"
           onClick={handleSheetClick}
           style={{ cursor: 'pointer' }}>
-          <AspectRatio ratio={1}>
-            <Stack>
-              <input
-                type="file"
-                onChange={handleUpload}
-                ref={fileInputRef}
-                style={{ display: 'none' }}
-                accept=".mp4"
-              />
-              {isUploading && (
-                <Stack alignItems="center" gap={0.5}>
-                  <CircularProgress />
-                  <Typography textColor="text.tertiary">
-                    Uploading...
-                  </Typography>
-                </Stack>
-              )}
-              {!isUploading && !error && (
-                <Stack alignItems="center" gap={0.5}>
-                  <UploadFile sx={{ fontSize: '42px' }} />
-                  <Typography textColor="text.tertiary">
-                    Click to select a .mp4 file
-                  </Typography>
-                </Stack>
-              )}
-              {error && (
-                <Stack alignItems="center" gap={0.5}>
-                  <ErrorIcon
-                    color={'danger' as 'error'}
-                    sx={{ fontSize: '42px' }}
-                  />
-                  <Typography color="danger">{error}</Typography>
-                </Stack>
-              )}
-            </Stack>
+          <AspectRatio
+            ratio={1}
+            objectFit="contain"
+            sx={{
+              borderRadius: 'md',
+              overflow: 'hidden',
+            }}>
+            {videoUrl && !isUploading ? (
+              <video height="100%" width="100%" src={videoUrl} controls />
+            ) : (
+              <Stack>
+                <input
+                  type="file"
+                  onChange={handleUpload}
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  accept=".mp4"
+                />
+                {isUploading && (
+                  <CircularProgress
+                    size="lg"
+                    determinate
+                    thickness={2}
+                    value={uploadProgress}>
+                    {uploadProgress.toFixed(0)}%
+                  </CircularProgress>
+                )}
+                {!isUploading && !error && (
+                  <Stack alignItems="center" gap={0.5}>
+                    <UploadFile sx={{ fontSize: '42px' }} />
+                    <Typography textColor="text.tertiary">
+                      Click to select a .mp4 file
+                    </Typography>
+                  </Stack>
+                )}
+                {error && (
+                  <Stack alignItems="center" gap={0.5}>
+                    <ErrorIcon
+                      color={'danger' as 'error'}
+                      sx={{ fontSize: '42px' }}
+                    />
+                    <Typography color="danger">{error}</Typography>
+                  </Stack>
+                )}
+              </Stack>
+            )}
           </AspectRatio>
         </Sheet>
-
-        {videoTitle && videoSize && !isUploading && (
-          <Sheet variant="outlined">
-            <Stack direction="row" justifyContent="space-between" p={1}>
-              <Typography
-                startDecorator={<Check color="success" />}
-                level="body-md">
-                {videoTitle}
-              </Typography>
-              <Typography level="body-md">{videoSize} KB</Typography>
-            </Stack>
-          </Sheet>
-        )}
       </Stack>
-
-      <Button onClick={handleSubmit}>Submit!</Button>
     </Stack>
   );
 }
