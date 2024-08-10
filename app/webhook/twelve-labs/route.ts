@@ -13,6 +13,7 @@ export async function POST(request: Request) {
   // Generate a JWT with the webhook_role
   const payload = {
     role: 'webhook',
+    iat: Math.floor(Date.now() / 1000),
     exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour expiration
   };
 
@@ -34,13 +35,18 @@ export async function POST(request: Request) {
     const { id } = data;
     console.log(`Id: ${id}`);
 
-    const { error } = await supabase
+    const { data: updated, error } = await supabase
       .from('workouts')
       .update({ status: 'completed' })
-      .eq('twelve_labs_task_id', id);
+      .eq('twelve_labs_task_id', id)
+      .select();
 
     if (error) {
       console.error(error);
+    }
+
+    if (updated) {
+      console.log(`Updated ${updated.length} workouts`);
     }
   }
 
