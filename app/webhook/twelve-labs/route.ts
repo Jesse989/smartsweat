@@ -1,6 +1,5 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
 
 function createClient(options = {}) {
   const supabaseUrl = process.env.SUPABASE_URL!;
@@ -10,26 +9,9 @@ function createClient(options = {}) {
 }
 
 export async function POST(request: Request) {
-  // Generate a JWT with the webhook_role
-  const payload = {
-    role: 'webhook',
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour expiration
-  };
-
-  const secret = process.env.SUPABASE_JWT_SECRET!;
-  const token = jwt.sign(payload, secret);
-
-  // Create the Supabase client with the JWT
-  const supabase = createClient({
-    global: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  });
-
   const { type, data } = await request.json();
+
+  const supabase = createClient();
 
   console.log(`Received Twelve Labs webhook: ${type}`);
 
@@ -50,6 +32,8 @@ export async function POST(request: Request) {
     if (updated) {
       console.log(`Updated ${updated.length} workouts`);
     }
+
+    // Trigger Portal workflow
   }
 
   return NextResponse.json({ status: 'ok' });

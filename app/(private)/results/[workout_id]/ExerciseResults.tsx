@@ -3,7 +3,13 @@
 import { Markdown } from '@/components/Markdown';
 import { createClient } from '@/utils/supabase/client';
 import { Circle } from '@mui/icons-material';
-import { AspectRatio, Sheet, Stack, Typography } from '@mui/joy';
+import {
+  AspectRatio,
+  CircularProgress,
+  Sheet,
+  Stack,
+  Typography,
+} from '@mui/joy';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -35,7 +41,9 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
   const getHeaderText = () => {
     switch (workout.status) {
       case 'indexing':
-        return "We're hard at work analyzing your exercise video. Please check back later for your personalized results.";
+        return "We're hard at work preparing your video to be analyzed. Please check back later for your personalized results.";
+      case 'indexed':
+        return 'your video has been indexed. We will now analyze your exercise video to provide you with personalized results.';
       case 'completed':
         return 'Great job on your workout! Here are your personalized results to help you further refine and enhance your exercise routine.';
       default:
@@ -62,8 +70,15 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
         </AspectRatio>
       </Sheet>
       {workout.status === 'indexing' && (
+        <Typography
+          startDecorator={<CircularProgress sx={{ mr: 0.5 }} size="sm" />}
+          level="body-md">
+          Indexing video...
+        </Typography>
+      )}
+      {workout.status === 'indexed' && (
         <Typography startDecorator={<Circle color="warning" />} level="body-md">
-          Analyzing video...
+          Video indexed. Analyzing results...
         </Typography>
       )}
       {workout.status === 'completed' && (
