@@ -7,7 +7,7 @@ import { AspectRatio, Box, Sheet, Stack, Typography } from '@mui/joy';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function ExerciseResults({ workout }) {
+export default function ExerciseResults({ workout }: { workout: Workout }) {
   const supabase = createClient();
   const router = useRouter();
 
