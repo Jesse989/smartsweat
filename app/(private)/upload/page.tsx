@@ -132,7 +132,7 @@ export default async function UploadPage({
       <Stack gap={1}>
         <SubmitButton
           formAction={handleSubmit}
-          pendingText="Submitting video"
+          pendingText="Submitting..."
           fullWidth>
           Analyze my form!
         </SubmitButton>

@@ -3,7 +3,7 @@
 import { Markdown } from '@/components/Markdown';
 import { createClient } from '@/utils/supabase/client';
 import { Circle } from '@mui/icons-material';
-import { AspectRatio, Box, Sheet, Stack, Typography } from '@mui/joy';
+import { AspectRatio, Sheet, Stack, Typography } from '@mui/joy';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -36,7 +36,7 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
     switch (workout.status) {
       case 'indexing':
         return "We're hard at work analyzing your exercise video. Please check back later for your personalized results.";
-      case 'complete':
+      case 'completed':
         return 'Great job on your workout! Here are your personalized results to help you further refine and enhance your exercise routine.';
       default:
         return 'Unknown status';
@@ -67,7 +67,7 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
         </Typography>
       )}
       {workout.status === 'completed' && (
-        <Box>
+        <Stack gap={2}>
           <Stack gap={0.5}>
             <Typography level="title-lg" color="primary">
               Exercise Name
@@ -96,7 +96,7 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
               <Markdown>{workout.alt_exercise ?? 'None'}</Markdown>
             </Stack>
           </Stack>
-        </Box>
+        </Stack>
       )}
     </Stack>
   );

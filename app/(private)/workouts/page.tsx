@@ -17,6 +17,7 @@ export default async function WorkoutsPage() {
   const { data } = await supabase
     .from('workouts')
     .select('*')
+    .order('created_at', { ascending: false })
     .eq('user_id', user.id);
 
   if (!data) {
