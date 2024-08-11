@@ -5,6 +5,7 @@ import {
 } from '@nft-portal/portal-ts';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import { TwelveLabs } from 'twelvelabs-js';
 
 function createClient() {
   const supabaseUrl = process.env.SUPABASE_URL!;
@@ -23,9 +24,20 @@ export async function POST(request: Request) {
   console.log(`Received Twelve Labs webhook: ${type}`);
 
   if (type === 'index.task.ready') {
-    const { id, video_id } = data;
+    const { id } = data;
 
-    console.log(`Task ID: ${id}, Video ID: ${video_id}`);
+    const client = new TwelveLabs({ apiKey: process.env.TWELVE_LABS_API_KEY! });
+
+    const task = await client.task.retrieve(id);
+
+    if (!task) {
+      console.error('Task not found');
+      return NextResponse.json({ status: 'error' });
+    }
+
+    const { videoId } = task;
+
+    console.log(`Task ID: ${id}, Video ID: ${videoId}`);
 
     const { data: workoutData, error } = await supabase
       .from('workouts')
@@ -78,7 +90,7 @@ export async function POST(request: Request) {
     // Insert message
     const portalRes = await convoApi.createMessage(res.body.id, {
       creator: 'anonymous',
-      content: `Please complete the work flow using the video with ID: ${id}, and the following users workout profile:\n\n${JSON.stringify(
+      content: `Please complete the work flow using the video with ID: ${videoId}, and the following users workout profile:\n\n${JSON.stringify(
         profile,
         null,
         2,
