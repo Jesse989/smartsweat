@@ -1,18 +1,11 @@
+import { createClient } from '@/utils/supabase/functions';
 import {
   ConversationCreationParams,
   ConvoApi,
   ConvoApiApiKeys,
 } from '@nft-portal/portal-ts';
-import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { TwelveLabs } from 'twelvelabs-js';
-
-function createClient() {
-  const supabaseUrl = process.env.SUPABASE_URL!;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-  return createSupabaseClient(supabaseUrl, supabaseKey);
-}
 
 export async function POST(request: Request) {
   // Validate request signature
@@ -90,11 +83,9 @@ export async function POST(request: Request) {
     // Insert message
     const portalRes = await convoApi.createMessage(res.body.id, {
       creator: 'anonymous',
-      content: `Please complete the work flow using the video with ID: ${videoId}, and the following users workout profile:\n\n${JSON.stringify(
-        profile,
-        null,
-        2,
-      )}`,
+      content: `Please complete the SOP using the following details:\n\nVideo ID: ${videoId}\n\nWorkout ID: ${
+        workout.id
+      }\n\nUser Profile:\n\n${JSON.stringify(profile, null, 2)}`,
     });
 
     const { error: workoutError } = await supabase
