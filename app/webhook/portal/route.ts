@@ -1,5 +1,4 @@
 import { createClient } from '@/utils/supabase/functions';
-import { NextResponse } from 'next/server';
 
 const WORKOUT_ID_COLUMN = '5104';
 const EXERCISE_NAME_COLUMN = 'a250';
@@ -41,9 +40,9 @@ export async function POST(request: Request) {
       }
     } catch (error) {
       console.error(error);
-      return NextResponse.json({ status: 'error' });
+      return Response.json({ message: 'error' }, { status: 500 });
     }
   }
 
-  return NextResponse.json({ status: 'ok' });
+  return Response.json({ message: 'ok' });
 }
