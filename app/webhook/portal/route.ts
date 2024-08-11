@@ -11,32 +11,38 @@ export async function POST(request: Request) {
   const body = await request.json();
   console.log('Received webhook:', body);
 
-  const { data: form } = body;
+  const { data: form, event_type } = body;
 
-  const supabase = createClient();
+  if (event_type === 'forms:updated') {
+    const supabase = createClient();
 
-  const workoutId = form.data[WORKOUT_ID_COLUMN];
-  const exerciseName = form.data[EXERCISE_NAME_COLUMN];
-  const issues = form.data[ISSUES_COLUMN];
-  const altExercise = form.data[ALT_EXERCISE_COLUMN];
-  const recommendations = form.data[RECOMMENDATIONS_COLUMN];
+    try {
+      const workoutId = form.data[WORKOUT_ID_COLUMN];
+      const exerciseName = form.data[EXERCISE_NAME_COLUMN];
+      const issues = form.data[ISSUES_COLUMN];
+      const altExercise = form.data[ALT_EXERCISE_COLUMN];
+      const recommendations = form.data[RECOMMENDATIONS_COLUMN];
+      // Save the form data to the database
+      const { error } = await supabase
+        .from('workouts')
+        .update({
+          status: 'completed',
+          portal_form_id: form.id,
+          exercise_type: exerciseName,
+          alt_exercise: altExercise,
+          recommendations: recommendations,
+          issues_with_form: issues,
+        })
+        .eq('id', workoutId);
 
-  // Save the form data to the database
-  const { error } = await supabase
-    .from('workouts')
-    .update({
-      status: 'completed',
-      portal_form_id: form.id,
-      exercise_type: exerciseName,
-      alt_exercise: altExercise,
-      recommendations: recommendations,
-      issues_with_form: issues,
-    })
-    .eq('id', workoutId);
-
-  if (error) {
-    console.error(error);
-    return NextResponse.json({ status: 'error' });
+      if (error) {
+        console.error(error);
+        throw new Error('Failed to update workout');
+      }
+    } catch (error) {
+      console.error(error);
+      return NextResponse.json({ status: 'error' });
+    }
   }
 
   return NextResponse.json({ status: 'ok' });

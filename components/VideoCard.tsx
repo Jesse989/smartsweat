@@ -48,7 +48,7 @@ export default function VideoCard({ workout }: { workout: Workout }) {
   return (
     <Card sx={{ bgcolor: '#000' }}>
       <CardOverflow>
-        <AspectRatio ratio={2 / 3} objectFit="cover">
+        <AspectRatio ratio={1} objectFit="cover">
           <video
             ref={videoRef}
             height="100%"
@@ -68,7 +68,7 @@ export default function VideoCard({ workout }: { workout: Workout }) {
               <PlayCircle
                 sx={{
                   fontSize: 100,
-                  color: 'text.secondary',
+                  color: 'primary',
                   position: 'absolute',
                   top: '50%',
                   left: '50%',
