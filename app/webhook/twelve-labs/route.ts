@@ -23,7 +23,9 @@ export async function POST(request: Request) {
   console.log(`Received Twelve Labs webhook: ${type}`);
 
   if (type === 'index.task.ready') {
-    const { id } = data;
+    const { id, video_id } = data;
+
+    console.log(`Task ID: ${id}, Video ID: ${video_id}`);
 
     const { data: workoutData, error } = await supabase
       .from('workouts')

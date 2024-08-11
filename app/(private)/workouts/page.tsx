@@ -1,6 +1,6 @@
+import VideoCard from '@/components/VideoCard';
 import { createClient } from '@/utils/supabase/server';
-import { AspectRatio, Card, CardOverflow, Stack, Typography } from '@mui/joy';
-import Link from 'next/link';
+import { Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 
 export default async function WorkoutsPage() {
@@ -37,28 +37,8 @@ export default async function WorkoutsPage() {
             Upload a new exercise or choose one from your history below.
           </Typography>
         </Stack>
-        {workouts?.map((workout: any) => (
-          <Card key={workout.id}>
-            <CardOverflow>
-              <AspectRatio ratio={1} objectFit="contain">
-                <video
-                  height="100%"
-                  width="100%"
-                  src={workout.video_url}
-                  controls
-                  title={workout.exercise_type}
-                />
-              </AspectRatio>
-            </CardOverflow>
-            <Stack>
-              <Link href={`/results/${workout.id}`}>
-                <Typography level="title-md">{workout.id}</Typography>
-              </Link>
-              <Typography level="body-sm">
-                {new Date(workout.created_at).toLocaleString()}
-              </Typography>
-            </Stack>
-          </Card>
+        {workouts?.map((workout: Workout) => (
+          <VideoCard key={workout.id} workout={workout} />
         ))}
       </Stack>
     </>

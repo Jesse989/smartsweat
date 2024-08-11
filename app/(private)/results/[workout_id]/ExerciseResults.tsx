@@ -1,15 +1,11 @@
 'use client';
 
 import { Markdown } from '@/components/Markdown';
+import VideoCard from '@/components/VideoCard';
 import { createClient } from '@/utils/supabase/client';
-import { Circle } from '@mui/icons-material';
-import {
-  AspectRatio,
-  CircularProgress,
-  Sheet,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import { ArrowBackIos, Circle } from '@mui/icons-material';
+import { CircularProgress, Stack, Typography } from '@mui/joy';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -43,7 +39,9 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
       case 'indexing':
         return "We're hard at work preparing your video to be analyzed. Please check back later for your personalized results.";
       case 'indexed':
-        return 'your video has been indexed. We will now analyze your exercise video to provide you with personalized results.';
+        return 'your video has been indexed and is now ready to be analyzed.';
+      case 'analyzing':
+        return 'We are currently analyzing your video. Please check back later for your personalized results.';
       case 'completed':
         return 'Great job on your workout! Here are your personalized results to help you further refine and enhance your exercise routine.';
       default:
@@ -55,32 +53,17 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
 
   return (
     <Stack minHeight="100%" gap={2}>
+      <Typography
+        component={Link}
+        href="/workouts"
+        startDecorator={<ArrowBackIos />}>
+        Back
+      </Typography>
       <Stack>
         <Typography level="h3">Your Exercise Results</Typography>
         <Typography level="body-md">{headerText}</Typography>
       </Stack>
-      <Sheet variant="outlined" sx={{ borderRadius: 'md', overflow: 'hidden' }}>
-        <AspectRatio ratio={1} objectFit="contain">
-          <video
-            height="100%"
-            width="100%"
-            src={workout.video_url ?? ''}
-            controls
-          />
-        </AspectRatio>
-      </Sheet>
-      {workout.status === 'indexing' && (
-        <Typography
-          startDecorator={<CircularProgress sx={{ mr: 0.5 }} size="sm" />}
-          level="body-md">
-          Indexing video...
-        </Typography>
-      )}
-      {workout.status === 'indexed' && (
-        <Typography startDecorator={<Circle color="warning" />} level="body-md">
-          Video indexed. Analyzing results...
-        </Typography>
-      )}
+      <VideoCard workout={workout} />
       {workout.status === 'completed' && (
         <Stack gap={2}>
           <Stack gap={0.5}>
