@@ -58,3 +58,33 @@ export async function uploadFile(
     });
   });
 }
+
+export const getHeaderText = (status: string) => {
+  switch (status) {
+    case 'indexing':
+      return "We're hard at work preparing your video to be analyzed!";
+    case 'indexed':
+      return 'Your video has been indexed and we are preparing to analyze it.';
+    case 'analyzing':
+      return 'Our AI is working hard to analyze this video and provide you with personalized insights.';
+    case 'completed':
+      return 'Here are your personalized results to help you further refine your exercise.';
+    default:
+      return 'Unknown status';
+  }
+};
+
+export const getStatusText = (status: string) => {
+  switch (status) {
+    case 'indexing':
+      return 'Indexing video...';
+    case 'indexed':
+      return 'Preparing video...';
+    case 'analyzing':
+      return 'Analyzing video...';
+    case 'completed':
+      return 'Analysis complete!';
+    default:
+      return 'Unknown status';
+  }
+};

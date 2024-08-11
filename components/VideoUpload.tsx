@@ -39,7 +39,8 @@ export default function VideoUpload({
       const file = e.target.files[0];
       const bucket = 'videos';
 
-      const fileName = `${userId}/${file.name}`;
+      const random = Math.random().toString(36).substring(7);
+      const fileName = `${userId}/${random}-${file.name}`;
       await uploadFile(bucket, fileName, file, setUploadProgress);
       const videoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/videos/${fileName}`;
       await setVideoUrl(videoUrl);
@@ -67,7 +68,7 @@ export default function VideoUpload({
               borderRadius: 'md',
               overflow: 'hidden',
             }}>
-            {videoUrl && !isUploading ? (
+            {videoUrl ? (
               <video height="100%" width="100%" src={videoUrl} controls />
             ) : (
               <Stack>

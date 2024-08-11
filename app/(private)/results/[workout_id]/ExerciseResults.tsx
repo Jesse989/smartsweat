@@ -1,10 +1,11 @@
 'use client';
 
 import { Markdown } from '@/components/Markdown';
-import VideoCard from '@/components/VideoCard';
+import VideoCard from '@/components/VideoPlayer';
 import { createClient } from '@/utils/supabase/client';
-import { ArrowBackIos, Circle } from '@mui/icons-material';
-import { CircularProgress, Stack, Typography } from '@mui/joy';
+import { getHeaderText, getStatusText } from '@/utils/uploads';
+import { ArrowBackIos } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -23,7 +24,7 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
           schema: 'public',
           table: 'workouts',
         },
-        (payload) => {
+        () => {
           router.refresh();
         },
       )
@@ -34,22 +35,8 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
     };
   }, [supabase, router]);
 
-  const getHeaderText = () => {
-    switch (workout.status) {
-      case 'indexing':
-        return "We're hard at work preparing your video to be analyzed. Please check back later for your personalized results.";
-      case 'indexed':
-        return 'your video has been indexed and is now ready to be analyzed.';
-      case 'analyzing':
-        return 'We are currently analyzing your video. Please check back later for your personalized results.';
-      case 'completed':
-        return 'Great job on your workout! Here are your personalized results to help you further refine and enhance your exercise routine.';
-      default:
-        return 'Unknown status';
-    }
-  };
-
-  const headerText = getHeaderText();
+  const headerText = getHeaderText(workout.status);
+  const statusText = getStatusText(workout.status);
 
   return (
     <Stack minHeight="100%" gap={2}>
@@ -60,11 +47,13 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
         Back
       </Typography>
       <Stack>
-        <Typography level="h3">Your Exercise Results</Typography>
+        <Typography level="h3" color="primary">
+          Results
+        </Typography>
         <Typography level="body-md">{headerText}</Typography>
       </Stack>
       <VideoCard workout={workout} />
-      {workout.status === 'completed' && (
+      {workout.status === 'completed' ? (
         <Stack gap={2}>
           <Stack gap={0.5}>
             <Typography level="title-lg" color="primary">
@@ -94,6 +83,13 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
               <Markdown>{workout.alt_exercise ?? 'None'}</Markdown>
             </Stack>
           </Stack>
+        </Stack>
+      ) : (
+        <Stack>
+          <Typography level="title-lg" color="primary">
+            Status
+          </Typography>
+          <Typography level="body-md">{statusText}</Typography>
         </Stack>
       )}
     </Stack>

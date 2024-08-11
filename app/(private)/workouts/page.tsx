@@ -1,4 +1,4 @@
-import VideoCard from '@/components/VideoCard';
+import WorkoutCard from '@/components/WorkoutCard';
 import { createClient } from '@/utils/supabase/server';
 import { Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
@@ -34,11 +34,11 @@ export default async function WorkoutsPage() {
             Let's Get Moving!
           </Typography>
           <Typography level="body-md" textAlign="center">
-            Upload a new exercise or choose one from your history below.
+            View and track your exercises here.
           </Typography>
         </Stack>
         {workouts?.map((workout: Workout) => (
-          <VideoCard key={workout.id} workout={workout} />
+          <WorkoutCard key={workout.id} workout={workout} />
         ))}
       </Stack>
     </>

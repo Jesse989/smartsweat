@@ -8,7 +8,6 @@ const RECOMMENDATIONS_COLUMN = '47a4';
 
 export async function POST(request: Request) {
   const body = await request.json();
-  console.log('Received webhook:', body);
 
   const { data: form, event_type } = body;
 
@@ -16,11 +15,25 @@ export async function POST(request: Request) {
     const supabase = createClient();
 
     try {
-      const workoutId = form.data[WORKOUT_ID_COLUMN];
-      const exerciseName = form.data[EXERCISE_NAME_COLUMN];
-      const issues = form.data[ISSUES_COLUMN];
-      const altExercise = form.data[ALT_EXERCISE_COLUMN];
-      const recommendations = form.data[RECOMMENDATIONS_COLUMN];
+      const {
+        [WORKOUT_ID_COLUMN]: workoutId,
+        [EXERCISE_NAME_COLUMN]: exerciseName,
+        [ISSUES_COLUMN]: issues,
+        [ALT_EXERCISE_COLUMN]: altExercise,
+        [RECOMMENDATIONS_COLUMN]: recommendations,
+      } = form.data;
+
+      // If any are null then return early
+      if (
+        !workoutId ||
+        !exerciseName ||
+        !issues ||
+        !altExercise ||
+        !recommendations
+      ) {
+        return Response.json({ message: 'incomplete form' });
+      }
+
       // Save the form data to the database
       const { error } = await supabase
         .from('workouts')
