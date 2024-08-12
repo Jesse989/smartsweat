@@ -2,6 +2,7 @@ import WorkoutCard from '@/components/WorkoutCard';
 import { createClient } from '@/utils/supabase/server';
 import { Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
+import { deleteWorkout } from '../results/[workout_id]/actions';
 
 export default async function WorkoutsPage() {
   const supabase = createClient();
@@ -38,7 +39,11 @@ export default async function WorkoutsPage() {
           </Typography>
         </Stack>
         {workouts?.map((workout: Workout) => (
-          <WorkoutCard key={workout.id} workout={workout} />
+          <WorkoutCard
+            key={workout.id}
+            workout={workout}
+            deleteWorkout={deleteWorkout}
+          />
         ))}
       </Stack>
     </>

@@ -9,6 +9,8 @@ import { Stack, Typography } from '@mui/joy';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import WorkoutMenu from '@/components/WorkoutMenu';
+import { deleteWorkout } from './actions';
 
 export default function ExerciseResults({ workout }: { workout: Workout }) {
   const supabase = createClient();
@@ -47,9 +49,16 @@ export default function ExerciseResults({ workout }: { workout: Workout }) {
         Back
       </Typography>
       <Stack>
-        <Typography level="h3" color="primary">
-          Results
-        </Typography>
+        <Stack
+          direction="row"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="baseline">
+          <Typography level="h3" color="primary">
+            Results
+          </Typography>
+          <WorkoutMenu workout={workout} deleteWorkout={deleteWorkout} />
+        </Stack>
         <Typography level="body-md">{headerText}</Typography>
       </Stack>
       <VideoCard workout={workout} />
