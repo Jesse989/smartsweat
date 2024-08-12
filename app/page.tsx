@@ -1,5 +1,5 @@
 import { Button, Stack, Typography } from '@mui/joy';
-import landingBg from './landing-bg.png';
+import landingBg from '@/assets/landing-bg.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '@/components/Logo';

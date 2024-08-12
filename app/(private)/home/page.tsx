@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server';
 import { AspectRatio, Box, Stack, Typography } from '@mui/joy';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
-import nightSky from '@/assets/night-sky.png';
+import landingBg from '@/assets/landing-bg.png';
 import Link from 'next/link';
 
 export default async function HomePage() {
@@ -33,6 +33,11 @@ export default async function HomePage() {
     return redirect('/profile');
   }
 
+  const { count } = await supabase
+    .from('workouts')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id);
+
   return (
     <Stack minHeight="100%" gap={2} position="relative">
       <Stack
@@ -42,18 +47,15 @@ export default async function HomePage() {
         <Typography level="h3">Hi, {profile.name}</Typography>
         <AuthButtonServer />
       </Stack>
-      <WorkoutStats />
+      <WorkoutStats currentStreak={0} totalWorkouts={count ?? 0} />
       <Link href="/workouts">
         <Box position="relative">
-          <AspectRatio
-            ratio={16 / 9}
-            variant="outlined"
-            sx={{ borderRadius: 'md' }}>
+          <AspectRatio ratio={1} variant="outlined" sx={{ borderRadius: 'md' }}>
             <Image
               style={{ objectFit: 'cover' }}
               alt="Mountains"
               priority
-              src={nightSky}
+              src={landingBg}
             />
           </AspectRatio>
           <Typography
