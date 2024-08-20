@@ -23,7 +23,7 @@ export default function VideoPlayer({ workout }: { workout: Workout }) {
   return (
     <AspectRatio
       ratio={1}
-      objectFit="cover"
+      objectFit="contain"
       sx={{ borderRadius: 'md', overflow: 'hidden' }}>
       <video
         ref={videoRef}
