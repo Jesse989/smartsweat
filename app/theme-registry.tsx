@@ -1,6 +1,7 @@
 'use client';
 
 import createCache from '@emotion/cache';
+import InitColorSchemeScript from '@mui/joy/InitColorSchemeScript';
 import { useServerInsertedHTML } from 'next/navigation';
 import { CacheProvider } from '@emotion/react';
 import { CssVarsProvider } from '@mui/joy/styles';
@@ -55,7 +56,8 @@ export default function ThemeRegistry(props: any) {
 
   return (
     <CacheProvider value={cache}>
-      <CssVarsProvider defaultMode="dark" theme={theme}>
+      <InitColorSchemeScript defaultMode="dark" />
+      <CssVarsProvider defaultMode="dark" theme={theme} modeStorageKey="mode">
         <CssBaseline />
         {children}
       </CssVarsProvider>
